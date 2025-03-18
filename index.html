@@ -13,6 +13,35 @@
             color: #ffffff;
             text-align: center;
         }
+
+<div class="borboleta" id="borboleta"></div>
+
+    <script>
+        const borboleta = document.getElementById('borboleta');
+        const velocidade = 3000;
+
+        function atualizarDimensoes() {
+            return {
+                larguraTela: window.innerWidth,
+                alturaTela: window.innerHeight
+            };
+        }
+
+        function moverBorboleta() {
+            const { larguraTela, alturaTela } = atualizarDimensoes();
+            const x = Math.random() * (larguraTela - 80);
+            const y = Math.random() * (alturaTela - 80);
+
+            borboleta.style.transition = `transform ${velocidade / 1000}s linear`;
+            borboleta.style.transform = `translate(${x}px, ${y}px)`;
+        }
+
+        setInterval(moverBorboleta, velocidade);
+
+        window.addEventListener('resize', atualizarDimensoes);
+    </script>
+
+        
         .container {
             display: flex;
             flex-direction: column;
@@ -76,6 +105,24 @@
             margin-right: auto;
         }
     </style>
+ <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #e0f7fa;
+        }
+
+        .borboleta {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background-image: url('./borboleta.png'); /* Certifique-se que o arquivo borboleta.png está na mesma pasta do arquivo HTML */
+            background-size: contain;
+            background-repeat: no-repeat;
+            z-index: 10;
+        }
+    </style>
+    
 </head>
 <body>
     <div class="container">
