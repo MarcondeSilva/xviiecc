@@ -9,15 +9,7 @@
             background-color: #e0f7fa;
         }
 
-        .borboleta {
-            position: absolute;
-            width: 80px;
-            height: 80px;
-            background-image: url('./borboleta.png'); /* Certifique-se que o arquivo borboleta.png está na mesma pasta do arquivo HTML */
-            background-size: contain;
-            background-repeat: no-repeat;
-            z-index: 10;
-        }
+    
     </style>
 
  <style>
@@ -1444,26 +1436,9 @@
     </script>
 
 
-    </script>
+ 
 
-<div class="borboleta" id="borboleta"></div>
 
-    <script>
-        const borboleta = document.getElementById('borboleta');
-        const velocidade = 3000;
-        const larguraTela = window.innerWidth;
-        const alturaTela = window.innerHeight;
-
-        function moverBorboleta() {
-            const x = Math.random() * (larguraTela - 50);
-            const y = Math.random() * (alturaTela - 50);
-
-            borboleta.style.transition = `transform ${velocidade / 1000}s linear`;
-            borboleta.style.transform = `translate(${x}px, ${y}px)`;
-        }
-
-        setInterval(moverBorboleta, velocidade);
-    </script>
 
 
 </body>
