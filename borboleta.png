@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Borboleta Animada</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #e0f7fa;
+        }
+
+        .borboleta {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-image: url('https://img1.picmix.com/output/stamp/normal/7/0/1/6/406107_43f5e.gif'); /* Ícone de borboleta */
+            background-size: cover;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="borboleta" id="borboleta"></div>
+
+    <script>
+        const borboleta = document.getElementById('borboleta');
+        const velocidade = 3000;
+        const larguraTela = window.innerWidth;
+        const alturaTela = window.innerHeight;
+
+        function moverBorboleta() {
+            const x = Math.random() * (larguraTela - 50);
+            const y = Math.random() * (alturaTela - 50);
+
+            borboleta.style.transition = `transform ${velocidade / 1000}s linear`;
+            borboleta.style.transform = `translate(${x}px, ${y}px)`;
+        }
+
+        setInterval(moverBorboleta, velocidade);
+    </script>
+
+</body>
+</html>
