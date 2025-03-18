@@ -1,18 +1,43 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Versículo Bíblico</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <style>
+
+ <style>
         body {
             margin: 0;
-            font-family: 'Roboto', sans-serif;
-            background: linear-gradient(to right, #ff7e5f, #feb47b);
-            color: #ffffff;
-            text-align: center;
+            overflow: hidden;
+            background-color: #e0f7fa;
         }
+
+        .borboleta {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background-image: url('./borboleta.png'); /* Certifique-se que o arquivo borboleta.png está na mesma pasta do arquivo HTML */
+            background-size: contain;
+            background-repeat: no-repeat;
+            z-index: 10;
+        }
+    </style>
+
+ <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #e0f7fa;
+        }
+
+        .borboleta {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-image: url('https://i.pinimg.com/originals/f2/c7/9d/f2c79d1d66a06ae5ddf219504bb82e9b.gif'); /* Ícone de borboleta */
+            background-size: cover;
+            z-index: 10;
+        }
+
+
+    </style>
 
 <div class="borboleta" id="borboleta"></div>
 
@@ -41,7 +66,25 @@
         window.addEventListener('resize', atualizarDimensoes);
     </script>
 
-        
+
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Versículo Bíblico</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body 
+
+
+
+{
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            color: #ffffff;
+            text-align: center;
+        }
         .container {
             display: flex;
             flex-direction: column;
@@ -105,24 +148,6 @@
             margin-right: auto;
         }
     </style>
- <style>
-        body {
-            margin: 0;
-            overflow: hidden;
-            background-color: #e0f7fa;
-        }
-
-        .borboleta {
-            position: absolute;
-            width: 80px;
-            height: 80px;
-            background-image: url('./borboleta.png'); /* Certifique-se que o arquivo borboleta.png está na mesma pasta do arquivo HTML */
-            background-size: contain;
-            background-repeat: no-repeat;
-            z-index: 10;
-        }
-    </style>
-    
 </head>
 <body>
     <div class="container">
@@ -144,8 +169,8 @@
         <footer class="church-info" style="margin-top: 0px; font-size: 0.9rem; text-align: center; color: #ffffff;">
             <!-- Adicione abaixo o endereço da sua igreja -->
             Restaurando Família como Plano de Deus!<b>
-<footer class="church-info" style="margin-top: 0px; font-size: 2rem; text-align: center; color: #ffffff ; ">
- Sejam todos bem-vindos à Sala de oração!<b>
+<footer class="church-info" style="margin-top: 0px; font-size: 1.5rem; text-align: center; color: #ffffff ; ">
+ Sejam bem vindos à Sala de oração!<b>
         </footer>      
     </div>
 
@@ -1417,5 +1442,29 @@
             }
         }
     </script>
+
+
+    </script>
+
+<div class="borboleta" id="borboleta"></div>
+
+    <script>
+        const borboleta = document.getElementById('borboleta');
+        const velocidade = 3000;
+        const larguraTela = window.innerWidth;
+        const alturaTela = window.innerHeight;
+
+        function moverBorboleta() {
+            const x = Math.random() * (larguraTela - 50);
+            const y = Math.random() * (alturaTela - 50);
+
+            borboleta.style.transition = `transform ${velocidade / 1000}s linear`;
+            borboleta.style.transform = `translate(${x}px, ${y}px)`;
+        }
+
+        setInterval(moverBorboleta, velocidade);
+    </script>
+
+
 </body>
 </html>
