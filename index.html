@@ -1,427 +1,371 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Controle Financeiro - Igreja</title>
-    <style>
-        /* Estilos gerais */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f2f5;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-        }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Controle Financeiro - Igreja</title>
+<style>
+  :root{
+    --green:#388e3c;
+    --green-soft:#81c784;
+    --input-font:15px;
+    --input-radius:8px;
+  }
+  body{font-family:Arial,Helvetica,sans-serif;background:#f0f2f5;margin:0;padding:20px;display:flex;justify-content:center;}
+  .container{width:100%;max-width:980px;background:#fff;border:1px solid #cfe8d6;padding:20px;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,0.06);}
+  .header{display:flex;align-items:center;border-bottom:2px solid var(--green-soft);padding-bottom:15px;margin-bottom:18px;}
+  .logo-box{width:100px;height:100px;border:2px solid var(--green);margin-right:18px;display:flex;align-items:center;justify-content:center;border-radius:8px;overflow:hidden;}
+  .logo-box img{max-width:100%;max-height:100%;object-fit:contain;}
+  .header-text h1,.header-text h2,.header-text h3{margin:0;color:var(--green);}
+  .header-text h1{font-size:22px}
+  .header-text h2{font-size:15px;font-weight:400}
+  .header-text h3{font-size:16px;margin-top:8px}
 
-        .container {
-            width: 100%;
-            max-width: 900px;
-            background-color: #fff;
-            border: 1px solid #c8e6c9;
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
+  .info-section{margin:18px 0 22px;display:flex;gap:12px;align-items:end;}
+  .info-item{flex:1;}
+  .info-item label{display:block;color:var(--green);font-weight:700;margin-bottom:6px;}
+  .info-item input,.info-item select{width:100%;padding:10px;border:1px solid var(--green-soft);border-radius:var(--input-radius);font-size:var(--input-font);box-sizing:border-box;}
 
-        /* Estilos do Cabeçalho */
-        .header {
-            display: flex;
-            align-items: center;
-            border-bottom: 2px solid #81c784;
-            padding-bottom: 15px;
-            margin-bottom: 20px;
-        }
+  .summary-section{display:flex;gap:10px;margin-bottom:18px;}
+  .summary-item{flex:1;border:2px solid var(--green);padding:12px;border-radius:8px;text-align:center;}
+  .summary-item label{display:block;color:var(--green);font-weight:700;margin-bottom:6px;}
+  .summary-item span{font-size:16px;font-weight:700;color:var(--green);}
 
-        .logo-box {
-            width: 100px;
-            height: 100px;
-            border: 2px solid #388e3c;
-            margin-right: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            color: #388e3c;
-            overflow: hidden;
-        }
-        
-        .logo-box img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-        }
+  .table-section{border:2px solid var(--green);border-radius:8px;padding:8px;margin-bottom:14px;}
+  table{width:100%;border-collapse:collapse;font-size:14px;}
+  table thead{background:#eaf4e8;color:var(--green);}
+  table th, table td{padding:8px;border:1px solid var(--green-soft);vertical-align:middle;}
+  table th{text-align:center;font-weight:700}
+  table input, table select{width:100%;padding:8px;border:1px solid var(--green-soft);border-radius:6px;font-size:var(--input-font);box-sizing:border-box;}
 
-        .header-text h1, .header-text h2, .header-text h3 {
-            margin: 0;
-            color: #388e3c;
-        }
-
-        .header-text h1 {
-            font-size: 24px;
-        }
-
-        .header-text h2 {
-            font-size: 16px;
-            font-weight: normal;
-        }
-
-        .header-text h3 {
-            font-size: 18px;
-            margin-top: 10px;
-        }
-
-        /* Seção de Informações Principais */
-        .info-section {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            border: 2px solid #388e3c;
-            padding: 10px;
-        }
-
-        .info-item {
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-            margin: 0 5px;
-        }
-
-        .info-item label {
-            font-size: 14px;
-            margin-bottom: 5px;
-            color: #388e3c;
-            font-weight: bold;
-        }
-
-        .info-item select,
-        .info-item input {
-            border: 1px solid #a5d6a7;
-            padding: 8px;
-            font-size: 14px;
-        }
-
-        /* Estilos da Tabela */
-        .table-section {
-            border: 2px solid #388e3c;
-            margin-bottom: 20px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        table th, table td {
-            border: 1px solid #81c784;
-            padding: 8px;
-            text-align: left;
-        }
-
-        table thead {
-            background-color: #dcedc8;
-            color: #388e3c;
-        }
-
-        table th {
-            font-weight: bold;
-            text-align: center;
-        }
-        
-        table input, table select {
-            width: 95%; /* Para campos dentro da tabela */
-        }
-
-        /* Estilos da Seção de Resumo */
-        .summary-section {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-        }
-
-        .summary-item {
-            border: 2px solid #388e3c;
-            padding: 10px;
-            text-align: center;
-            flex-grow: 1;
-            margin: 0 5px;
-        }
-
-        .summary-item label {
-            font-weight: bold;
-            color: #388e3c;
-            display: block;
-        }
-
-        .summary-item span {
-            font-size: 16px;
-            font-weight: bold;
-            color: #388e3c;
-        }
-
-        /* Estilos dos Botões de Ação */
-        .action-buttons {
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-
-        .submit-button-container {
-            text-align: right;
-        }
-
-        button {
-            background-color: #4caf50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-            border-radius: 5px;
-        }
-
-        button:hover {
-            background-color: #388e3c;
-        }
-    </style>
+  .action-buttons{display:flex;justify-content:flex-end;margin-bottom:10px;}
+  button{background:var(--green);color:#fff;padding:10px 16px;border-radius:8px;border:none;cursor:pointer;font-size:15px}
+  button:hover{background:#2e7d32}
+  .remove-btn{background:#f44336;padding:6px 8px;border-radius:6px}
+  .loading,.success-message,.error-message{display:none;padding:10px;margin:8px 0;border-radius:6px;text-align:center}
+  .loading{background:#fff7e6;border:1px solid #ffd27a;color:#8a6a00}
+  .success-message{background:#e8f7e8;border:1px solid #b6e4b6;color:#2e7d32}
+  .error-message{background:#ffecec;border:1px solid #f5b6b6;color:#a12}
+  .submit-button-container{display:flex;justify-content:flex-end;margin-top:8px}
+  @media (max-width:700px){
+    .info-section{flex-direction:column;align-items:stretch;}
+  }
+</style>
 </head>
 <body>
+<div class="container">
+  <header class="header">
+    <div class="logo-box">
+      <img src="https://via.placeholder.com/100x100.png?text=LOGO" alt="Logo">
+    </div>
+    <div class="header-text">
+      <h1>Igreja Evangélica Assembleia de Deus</h1>
+      <h2>Ministério Internacional Paz & Vida</h2>
+      <h3>Movimentação financeira - Controle interno</h3>
+    </div>
+  </header>
 
-    <div class="container">
-        <header class="header">
-            <div class="logo-box">
-                <img src="https://via.placeholder.com/100x100.png?text=LOGO" alt="Logo da Igreja">
-            </div>
-            <div class="header-text">
-                <h1>Igreja Evangélica Assembleia de Deus</h1>
-                <h2>Ministério Internacional Paz & Vida</h2>
-                <h3>Movimentação financeira - Controle interno</h3>
-            </div>
-        </header>
-
-        <form id="financeForm">
-            <div class="info-section">
-                <div class="info-item">
-                    <label for="weekSelect">Escolha a Semana</label>
-                    <select id="weekSelect" name="weekSelect"></select>
-                </div>
-                <div class="info-item">
-                    <label for="docDate">Data do documento</label>
-                    <input type="date" id="docDate" name="docDate" required>
-                </div>
-                <div class="info-item">
-                    <label for="movimentador">Nome do movimentador</label>
-                    <input type="text" id="movimentador" name="movimentador" required>
-                </div>
-            </div>
-
-            <div class="table-section">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>TIPO</th>
-                            <th>DESCRIÇÃO DA MOVIMENTAÇÃO</th>
-                            <th>DOC Nº</th>
-                            <th>VALOR</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody id="movimentacoes-body">
-                        </tbody>
-                </table>
-            </div>
-
-            <div class="action-buttons">
-                <button type="button" id="addRowBtn">Adicionar Linha</button>
-            </div>
-            
-            <div class="summary-section">
-                <div class="summary-item">
-                    <label>Total Entradas:</label>
-                    <span id="total-entradas">R$ 0,00</span>
-                </div>
-                <div class="summary-item">
-                    <label>Total Saídas:</label>
-                    <span id="total-saidas">R$ 0,00</span>
-                </div>
-                <div class="summary-item">
-                    <label>Saldo:</label>
-                    <span id="saldo-final">R$ 0,00</span>
-                </div>
-            </div>
-
-            <div class="submit-button-container">
-                <button type="submit" id="saveBtn">Salvar</button>
-            </div>
-        </form>
+  <form id="financeForm">
+    <!-- topo: data / semana / movimentador -->
+    <div class="info-section">
+      <div class="info-item">
+        <label for="dataInput">Data</label>
+        <input id="dataInput" type="date" required />
+      </div>
+      <div class="info-item">
+        <label for="semanaSelect">Semana</label>
+        <select id="semanaSelect" required></select>
+      </div>
+      <div class="info-item">
+        <label for="movimentadorInput">Movimentador</label>
+        <input id="movimentadorInput" type="text" placeholder="Nome de quem movimenta" required />
+      </div>
     </div>
 
-    <script>
-        // Acessando os elementos HTML que vamos manipular
-        const addRowBtn = document.getElementById('addRowBtn');
-        const movimentacoesBody = document.getElementById('movimentacoes-body');
-        const form = document.getElementById('financeForm');
+    <div class="summary-section">
+      <div class="summary-item">
+        <label>Total Entradas</label>
+        <span id="total-entradas">R$ 0,00</span>
+      </div>
+      <div class="summary-item">
+        <label>Total Saídas</label>
+        <span id="total-saidas">R$ 0,00</span>
+      </div>
+      <div class="summary-item">
+        <label>Saldo</label>
+        <span id="saldo-final">R$ 0,00</span>
+      </div>
+    </div>
 
-        // Campos de resumo para atualização
-        const totalEntradasSpan = document.getElementById('total-entradas');
-        const totalSaidasSpan = document.getElementById('total-saidas');
-        const saldoFinalSpan = document.getElementById('saldo-final');
-        const weekSelect = document.getElementById('weekSelect');
+    <div class="table-section">
+      <table>
+        <thead>
+          <tr>
+            <th>TIPO</th>
+            <th>DESCRIÇÃO</th>
+            <th>DOC Nº</th>
+            <th>VALOR</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="movimentacoes-body"></tbody>
+      </table>
+    </div>
 
-        // Função para adicionar uma nova linha à tabela
-        function addRow() {
-            const newRow = document.createElement('tr');
-            newRow.innerHTML = `
-                <td>
-                    <select class="mov-tipo" name="tipo">
-                        <option value="Entrada">Entrada</option>
-                        <option value="Saída">Saída</option>
-                    </select>
-                </td>
-                <td>
-                    <input type="text" class="mov-descricao" name="descricao" required>
-                </td>
-                <td>
-                    <input type="text" class="mov-doc" name="doc_num">
-                </td>
-                <td>
-                    <input type="number" class="mov-valor" name="valor" step="0.01" min="0" required>
-                </td>
-                <td>
-                    <button type="button" class="remove-btn">Remover</button>
-                </td>
-            `;
-            movimentacoesBody.appendChild(newRow);
+    <div class="action-buttons">
+      <button type="button" id="addRowBtn">Adicionar Linha</button>
+    </div>
+
+    <div class="loading" id="loading">Enviando dados, por favor aguarde...</div>
+    <div class="success-message" id="success-message">Dados salvos com sucesso!</div>
+    <div class="error-message" id="error-message">Ocorreu um erro ao salvar os dados. Verifique o console.</div>
+
+    <div class="submit-button-container">
+      <button type="submit" id="saveBtn">Salvar na Planilha</button>
+    </div>
+  </form>
+</div>
+
+<script>
+/* ========== CONFIG ========== */
+const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwwTzb6hvXBO5fToN_s8IVtUFXbAHUN2AR4rORbqGzpKk1saPUk7aMetiKvZ_m-b1wc/exec';
+const SHEET_ID = '1IaR1nh8HFoMIu8OGPAsgfS1oxNv9nVt1LWbNgysvNB0';
+const SHEET_NAME = 'movimento';
+/* ============================ */
+
+const movimentacoesBody = document.getElementById('movimentacoes-body');
+const addRowBtn = document.getElementById('addRowBtn');
+const form = document.getElementById('financeForm');
+const loadingEl = document.getElementById('loading');
+const successEl = document.getElementById('success-message');
+const errorEl = document.getElementById('error-message');
+
+const totalEntradasSpan = document.getElementById('total-entradas');
+const totalSaidasSpan = document.getElementById('total-saidas');
+const saldoFinalSpan = document.getElementById('saldo-final');
+
+const semanaSelect = document.getElementById('semanaSelect');
+const dataInput = document.getElementById('dataInput');
+const movimentadorInput = document.getElementById('movimentadorInput');
+
+function addRow(tipo = 'Entrada', descricao = '', doc = '', valor = 0) {
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td>
+      <select class="mov-tipo">
+        <option value="Entrada" ${tipo === 'Entrada' ? 'selected' : ''}>Entrada</option>
+        <option value="Saída" ${tipo === 'Saída' ? 'selected' : ''}>Saída</option>
+      </select>
+    </td>
+    <td><input type="text" class="mov-descricao" value="${escapeHtml(descricao)}" required /></td>
+    <td><input type="text" class="mov-doc" value="${escapeHtml(doc)}" /></td>
+    <td><input type="number" class="mov-valor" step="0.01" min="0" value="${Number(valor).toFixed(2)}" required /></td>
+    <td style="text-align:center"><button type="button" class="remove-btn">Remover</button></td>
+  `;
+  movimentacoesBody.appendChild(tr);
+
+  // eventos
+  tr.querySelector('.mov-valor').addEventListener('input', calculateTotals);
+  tr.querySelector('.mov-tipo').addEventListener('change', calculateTotals);
+  tr.querySelector('.remove-btn').addEventListener('click', () => {
+    tr.remove();
+    calculateTotals();
+  });
+  calculateTotals();
+}
+
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str).replaceAll('"','&quot;').replaceAll('<','&lt;').replaceAll('>','&gt;');
+}
+
+function calculateTotals() {
+  let entradas = 0, saidas = 0;
+  movimentacoesBody.querySelectorAll('tr').forEach(row => {
+    const tipo = row.querySelector('.mov-tipo').value;
+    const val = parseFloat(row.querySelector('.mov-valor').value) || 0;
+    if (tipo === 'Entrada') entradas += val;
+    else saidas += val;
+  });
+  const saldo = entradas - saidas;
+  totalEntradasSpan.textContent = `R$ ${entradas.toFixed(2).replace('.', ',')}`;
+  totalSaidasSpan.textContent = `R$ ${saidas.toFixed(2).replace('.', ',')}`;
+  saldoFinalSpan.textContent = `R$ ${saldo.toFixed(2).replace('.', ',')}`;
+}
+
+/* Gera opções de 4 semanas (semana atual + próximas 3) */
+function generateWeekOptions() {
+  const today = new Date();
+  semanaSelect.innerHTML = '';
+  for (let i = 0; i < 4; i++) {
+    const ref = new Date(today);
+    ref.setDate(today.getDate() - today.getDay() + (i * 7)); // domingo da semana i
+    const start = new Date(ref);
+    const end = new Date(ref);
+    end.setDate(start.getDate() + 6);
+    const startStr = `${String(start.getDate()).padStart(2,'0')}/${String(start.getMonth()+1).padStart(2,'0')}`;
+    const endStr = `${String(end.getDate()).padStart(2,'0')}/${String(end.getMonth()+1).padStart(2,'0')}`;
+    const val = `Semana ${startStr} a ${endStr}`;
+    const opt = document.createElement('option');
+    opt.value = val;
+    opt.textContent = val;
+    semanaSelect.appendChild(opt);
+  }
+}
+
+/* Converte vários formatos de data para value input (YYYY-MM-DD) */
+function toInputDate(value) {
+  if (!value) return '';
+  // já é ISO-like?
+  let d = new Date(value);
+  if (!isNaN(d)) return d.toISOString().substr(0,10);
+  // tenta dd/mm/yyyy
+  const m = String(value).match(/(\d{1,2})\/(\d{1,2})\/(\d{2,4})/);
+  if (m) {
+    const day = m[1].padStart(2,'0');
+    const mon = m[2].padStart(2,'0');
+    const year = m[3].length === 2 ? '20' + m[3] : m[3];
+    return `${year}-${mon}-${day}`;
+  }
+  return '';
+}
+
+/* Carrega dados existentes (faz GET ?action=read) e popula a tabela.
+   O Apps Script normaliza cabeçalhos para chaves como:
+   data_hora, entrada, saida, totalsaidas, totalentradas, semana, nome, saldo, tipomovimento, numerodoc, valordoc
+*/
+async function carregarDadosExistentes() {
+  try {
+    loadingEl.style.display = 'block';
+    const res = await fetch(`${WEB_APP_URL}?action=read`);
+    if (!res.ok) throw new Error('Resposta não OK: ' + res.status);
+    const dados = await res.json();
+    // limpar tabela
+    movimentacoesBody.innerHTML = '';
+    if (!Array.isArray(dados) || dados.length === 0) {
+      addRow(); // linha vazia
+      return;
+    }
+
+    // Preencher os campos do topo com a última linha (se existir)
+    const last = dados[dados.length - 1];
+    // campos normalizados esperados:
+    // data_hora, semana, nome, tipomovimento, numerodoc, valordoc, entrada, saida
+    if (last) {
+      const possibleDate = last.data_hora || last['data_hora'] || last['data/hora'] || last['datahora'];
+      const parsed = toInputDate(possibleDate);
+      if (parsed) dataInput.value = parsed;
+      if (last.semana) {
+        // se não houver opção correspondente, cria
+        let found = Array.from(semanaSelect.options).find(o => o.value === last.semana);
+        if (!found) {
+          const opt = document.createElement('option');
+          opt.value = last.semana;
+          opt.textContent = last.semana;
+          semanaSelect.appendChild(opt);
+          found = opt;
         }
+        semanaSelect.value = last.semana;
+      }
+      if (last.nome) movimentadorInput.value = last.nome;
+    }
 
-        // Função para calcular os totais e o saldo
-        function calculateTotals() {
-            let totalEntradas = 0;
-            let totalSaidas = 0;
+    // Exibir registros (mostra as últimas 100 linhas para não travar)
+    const startIndex = Math.max(0, dados.length - 100);
+    for (let i = startIndex; i < dados.length; i++) {
+      const row = dados[i];
+      const tipo = row.tipomovimento || row['tipomovimento'] || row['tipo'] || '';
+      // descrição não existe no seu cabeçalho original -> deixamos em branco (aqui só mostramos o que há)
+      const descricao = row.descricao || row['descricao'] || '';
+      const doc = row.numerodoc || row['numerodoc'] || row['numero_doc'] || '';
+      const valor = parseFloat(row.valordoc || row['valordoc'] || row.valor || row['valor']) || 0;
+      addRow(tipo || 'Entrada', descricao, doc, valor);
+    }
 
-            const rows = movimentacoesBody.querySelectorAll('tr');
+    calculateTotals();
+  } catch (err) {
+    console.error('Erro ao carregar dados:', err);
+  } finally {
+    loadingEl.style.display = 'none';
+  }
+}
 
-            rows.forEach(row => {
-                const tipoSelect = row.querySelector('.mov-tipo');
-                const valorInput = row.querySelector('.mov-valor');
-                
-                const valor = parseFloat(valorInput.value) || 0;
+addRowBtn.addEventListener('click', () => addRow());
 
-                if (tipoSelect.value === 'Entrada') {
-                    totalEntradas += valor;
-                } else {
-                    totalSaidas += valor;
-                }
-            });
+form.addEventListener('submit', async (ev) => {
+  ev.preventDefault();
+  // coletar topo
+  const data = dataInput.value || new Date().toISOString().substr(0,10);
+  const semana = semanaSelect.value || '';
+  const movimentador = movimentadorInput.value || '';
 
-            const saldo = totalEntradas - totalSaidas;
+  // coletar movimentações
+  const movimentacoes = [];
+  movimentacoesBody.querySelectorAll('tr').forEach(row => {
+    const tipo = row.querySelector('.mov-tipo').value;
+    const descricao = row.querySelector('.mov-descricao').value;
+    const doc_num = row.querySelector('.mov-doc').value;
+    const valor = parseFloat(row.querySelector('.mov-valor').value) || 0;
+    if (descricao || doc_num || valor) movimentacoes.push({ tipo, descricao, doc_num, valor });
+  });
+  if (movimentacoes.length === 0) {
+    alert('Preencha pelo menos uma linha.');
+    return;
+  }
 
-            totalEntradasSpan.textContent = `R$ ${totalEntradas.toFixed(2).replace('.', ',')}`;
-            totalSaidasSpan.textContent = `R$ ${totalSaidas.toFixed(2).replace('.', ',')}`;
-            saldoFinalSpan.textContent = `R$ ${saldo.toFixed(2).replace('.', ',')}`;
-        }
+  const totalEntradas = movimentacoes.filter(m => m.tipo === 'Entrada').reduce((s,m) => s + m.valor, 0);
+  const totalSaidas = movimentacoes.filter(m => m.tipo === 'Saída').reduce((s,m) => s + m.valor, 0);
+  const saldoFinal = totalEntradas - totalSaidas;
 
-        // Eventos
-        addRowBtn.addEventListener('click', addRow);
-        movimentacoesBody.addEventListener('input', calculateTotals);
-        movimentacoesBody.addEventListener('click', (event) => {
-            if (event.target.classList.contains('remove-btn')) {
-                const row = event.target.closest('tr');
-                row.remove();
-                calculateTotals();
-            }
-        });
+  loadingEl.style.display = 'block';
+  successEl.style.display = 'none';
+  errorEl.style.display = 'none';
 
-        // Função para gerar as opções de semana
-        function generateWeekOptions() {
-            const today = new Date();
-            for (let i = 0; i < 4; i++) {
-                const date = new Date(today.getTime());
-                date.setDate(today.getDate() + i * 7);
-                const startOfWeek = new Date(date.setDate(date.getDate() - date.getDay()));
-                const endOfWeek = new Date(date.setDate(date.getDate() - date.getDay() + 6));
-                
-                const option = document.createElement('option');
-                const start = `${startOfWeek.getDate().toString().padStart(2, '0')}/${(startOfWeek.getMonth() + 1).toString().padStart(2, '0')}`;
-                const end = `${endOfWeek.getDate().toString().padStart(2, '0')}/${(endOfWeek.getMonth() + 1).toString().padStart(2, '0')}`;
-                
-                option.value = `Semana de ${start} a ${end}`;
-                option.textContent = `Semana de ${start} a ${end}`;
-                weekSelect.appendChild(option);
-            }
-        }
+  try {
+    const payload = {
+      sheetId: SHEET_ID,
+      sheetName: SHEET_NAME,
+      data: {
+        docDate: data,
+        semana,
+        movimentador,
+        totalEntradas,
+        totalSaidas,
+        saldoFinal,
+        movimentacoes
+      }
+    };
+    const res = await fetch(WEB_APP_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    const txt = await res.text();
+    if (!res.ok) throw new Error(txt || res.statusText);
+    successEl.style.display = 'block';
+    // limpar e recarregar
+    movimentacoesBody.innerHTML = '';
+    addRow();
+    calculateTotals();
+    // opcional: recarregar últimos registros para atualizar visão
+    carregarDadosExistentes();
+  } catch (err) {
+    console.error('Erro ao enviar:', err);
+    errorEl.textContent = 'Ocorreu um erro ao salvar. Veja o console para detalhes.';
+    errorEl.style.display = 'block';
+  } finally {
+    loadingEl.style.display = 'none';
+  }
+});
 
-        // Adiciona uma linha inicial e gera as semanas ao carregar a página
-        document.addEventListener('DOMContentLoaded', () => {
-            addRow();
-            generateWeekOptions();
-            calculateTotals();
-        });
-
-        // CÓDIGO PARA ENVIAR O FORMULÁRIO
-        form.addEventListener('submit', function(event) {
-            event.preventDefault(); // Impede o envio padrão do formulário
-
-            // SUBSTITUA ESTE URL
-            const webAppUrl = 'https://script.google.com/macros/s/AKfycbxG-y-lmw0IoiNl1SK5qbmsdqzOD_Xif8biWBCj-66mYrFDZ-8A6qEUmORZnQYzl9v2vA/exec';
-
-            const docDate = document.getElementById('docDate').value;
-            const movimentador = document.getElementById('movimentador').value;
-            const semana = document.getElementById('weekSelect').value;
-
-            const movimentacoes = [];
-            movimentacoesBody.querySelectorAll('tr').forEach(row => {
-                const tipo = row.querySelector('.mov-tipo').value;
-                const descricao = row.querySelector('.mov-descricao').value;
-                const doc_num = row.querySelector('.mov-doc').value;
-                const valor = parseFloat(row.querySelector('.mov-valor').value) || 0;
-
-                if (descricao || doc_num || valor) {
-                    movimentacoes.push({ tipo, descricao, doc_num, valor });
-                }
-            });
-
-            if (movimentacoes.length === 0) {
-                alert('Por favor, preencha pelo menos uma linha para salvar.');
-                return;
-            }
-
-            const totalEntradas = parseFloat(totalEntradasSpan.textContent.replace('R$', '').replace(',', '.'));
-            const totalSaidas = parseFloat(totalSaidasSpan.textContent.replace('R$', '').replace(',', '.'));
-            const saldoFinal = parseFloat(saldoFinalSpan.textContent.replace('R$', '').replace(',', '.'));
-
-            const formData = {
-                docDate,
-                movimentador,
-                semana,
-                totalEntradas,
-                totalSaidas,
-                saldoFinal,
-                movimentacoes
-            };
-
-            fetch(webAppUrl, {
-                method: 'POST',
-                body: JSON.stringify(formData),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(response => response.text())
-            .then(data => {
-                alert('Movimentações salvas com sucesso!');
-                form.reset();
-                movimentacoesBody.innerHTML = '';
-                addRow();
-                calculateTotals();
-            })
-            .catch(error => {
-                console.error('Erro:', error);
-                alert('Ocorreu um erro ao salvar as movimentações.');
-            });
-        });
-    </script>
+/* inicialização */
+document.addEventListener('DOMContentLoaded', () => {
+  // data hoje
+  dataInput.valueAsDate = new Date();
+  generateWeekOptions();
+  addRow();
+  carregarDadosExistentes();
+});
+</script>
 </body>
 </html>
-
